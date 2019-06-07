@@ -124,6 +124,7 @@
   :bind ("C-." . er/expand-region)
   :init
   (require 'expand-region)
+  (require 'cl)
   (defun mark-around* (search-forward-char)
     (let* ((expand-region-fast-keys-enabled nil)
            (char (or search-forward-char

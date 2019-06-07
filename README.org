@@ -1,0 +1,9 @@
+* My Emacs configuration
+
+I have a very simple Emacs configuration consisting of a single init.el and a
+single private file with some work-related hardcoded paths that are unimportant
+for the general public. Some highlights:
+
+- straight.el as a package manager
+- consists mainly of use-package macros
+- used for my Python development needs
