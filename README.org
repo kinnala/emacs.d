@@ -1,9 +1,15 @@
 * My Emacs configuration
 
-I have a very simple Emacs configuration consisting of a single init.el and a
-single private file with some work-related hardcoded paths that are unimportant
+I have a very simple Emacs configuration consisting of a single `init.el` and
+another private file with some work-related hardcoded paths that are unimportant
 for the general public. Some highlights:
 
 - straight.el as a package manager
 - consists mainly of use-package macros
-- used for my Python development needs
+- used for Python development and random hacking
+
+* Installation
+
+Copy `init.el` to `~/.emacs.d/init.el` and restart Emacs.  Some of the
+configured paths (e.g. `org` and `virtualenvwrapper`) won't make sense in your
+system so you have to modify them.
