@@ -1,6 +1,8 @@
 * My Emacs configuration
 
-I have a very simple Emacs configuration consisting of a single `init.el` and
+![Screenshot](https://github.com/kinnala/emacs.d/blob/master/screenshot.png?raw=true)
+
+I have a very simple Emacs configuration consisting of a single =init.el= and
 another private file with some work-related hardcoded paths that are unimportant
 for the general public. Some highlights:
 
@@ -10,6 +12,6 @@ for the general public. Some highlights:
 
 * Installation
 
-Copy `init.el` to `~/.emacs.d/init.el` and restart Emacs.  Some of the
-configured paths (e.g. `org` and `virtualenvwrapper`) won't make sense in your
+Copy =init.el= to =~/.emacs.d/init.el= and restart Emacs.  Some of the
+configured paths (e.g. =org= and =virtualenvwrapper=) won't make sense in your
 system so you have to modify them.
