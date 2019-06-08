@@ -1,6 +1,6 @@
 * My Emacs configuration
 
-![Screenshot](https://github.com/kinnala/emacs.d/blob/master/screenshot.png?raw=true)
+[[https://github.com/kinnala/emacs.d/blob/master/screenshot.png?raw=true]]
 
 I have a very simple Emacs configuration consisting of a single =init.el= and
 another private file with some work-related hardcoded paths that are unimportant
