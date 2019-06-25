@@ -305,6 +305,12 @@
 
 (use-package restclient)
 
+(use-package ob-restclient
+  :after org
+  :init
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((restclient . t))))
+
 ;; useful functions
 
 (defun tom/unfill-paragraph (&optional region)
