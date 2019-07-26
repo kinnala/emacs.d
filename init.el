@@ -232,9 +232,9 @@
                      (aref v 1) (aref v 2)))
          (format "cd '%s'\n" current-dir)))))
   (setq dired-dwim-target t)
-  (add-hook 'dired-mode-hook
-            (lambda ()
-              (dired-hide-details-mode)))
+  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
+  (setq dired-omit-files "^\\...+$")
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
   :bind (("C-x C-j" . dired-jump))
   :bind (:map dired-mode-map
               ("'" . tom/dired-open-term)
@@ -296,12 +296,6 @@
          ("M-n" . symbol-overlay-switch-forward)
          ("M-p" . symbol-overlay-switch-backward)
          ("<f8>" . symbol-overlay-remove-all)))
-
-(use-package atomic-chrome
-  :init
-  (atomic-chrome-start-server)
-  (setq atomic-chrome-buffer-open-style 'frame)
-  (setq atomic-chrome-default-major-mode 'python-mode))
 
 (use-package restclient)
 
