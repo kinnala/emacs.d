@@ -26,12 +26,13 @@
 ;; install and configure other packages
 
 (use-package org
+  :commands org-babel-do-load-languages
   :config
   (unbind-key "C-," org-mode-map)
-  (org-babel-do-load-languages
-    'org-babel-load-languages '((python . t)
-                                (shell . t)))
   :init
+  (add-hook 'org-mode-hook (lambda () (org-babel-do-load-languages
+                                       'org-babel-load-languages '((python . t)
+                                                                   (shell . t)))))
   (setq org-default-notes-file "~/Dropbox/Notes/gtd/inbox.org"
         org-agenda-files '("~/Dropbox/Notes/gtd/inbox.org"
                            "~/Dropbox/Notes/gtd/tickler.org")
@@ -56,6 +57,8 @@
         org-src-preserve-indentation t
         org-confirm-babel-evaluate nil
         python-shell-completion-native-disabled-interpreters '("python")
+        org-babel-default-header-args:sh '((:prologue . "exec 2>&1")
+                                           (:epilogue . ":"))
         org-capture-templates '(("t" "Todo" entry
                                  (file "~/Dropbox/Notes/gtd/inbox.org")
                                  "* TODO %?\n  %i\n  %a")))
@@ -209,8 +212,11 @@
 (use-package term
   :straight f)
 
+(use-package dired-x
+  :straight f)
+
 (use-package dired
-  :after term
+  :after (term dired-x)
   :straight f
   :init
   (defun tom/switch-to-terminal ()
@@ -240,6 +246,9 @@
               ("'" . tom/dired-open-term)
               ("j" . swiper)
               ("s" . swiper)))
+
+(use-package ob-async
+  :after org)
 
 (use-package request)
 
