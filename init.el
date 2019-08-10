@@ -89,8 +89,7 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c g" . counsel-rg)
          ("C-c G" . counsel-git)
-         ("M-y" . counsel-yank-pop)
-         ("C-c C-j" . counsel-imenu))
+         ("M-y" . counsel-yank-pop))
   :bind (:map python-mode-map
               ("C-c C-j" . counsel-imenu))
   :init (setq counsel-find-file-ignore-regexp "\\archive\\'"))
@@ -210,40 +209,39 @@
 (use-package flycheck)
 
 (use-package term
-  :straight f)
+  :straight f
+  :init
+  (defun tom/toggle-line-mode ()
+    "Toggles term between line mode and char mode"
+    (interactive)
+    (if (term-in-line-mode)
+        (term-char-mode)
+      (term-line-mode)))
+  (add-hook 'term-mode-hook
+            (lambda () (define-key term-mode-map
+                         (kbd "C-c C-j")
+                         'tom/toggle-line-mode)))
+  (add-hook 'term-mode-hook
+            (lambda () (define-key term-raw-map
+                         (kbd "C-c C-j")
+                         'tom/toggle-line-mode))))
 
 (use-package dired-x
   :straight f)
 
+(use-package multi-term)
+
 (use-package dired
-  :after (term dired-x)
+  :after (term multi-term dired-x)
   :straight f
   :init
-  (defun tom/switch-to-terminal ()
-    "Switch to terminal. Launch if nonexistent."
-    (interactive)
-    (if (get-buffer "*ansi-term*")
-        (switch-to-buffer "*ansi-term*")
-      (ansi-term "/bin/bash"))
-    (get-buffer-process "*ansi-term*"))
-  (defun tom/dired-open-term ()
-    "Open an `ansi-term' that corresponds to current directory."
-    (interactive)
-    (let ((current-dir (dired-current-directory)))
-      (term-send-string
-       (tom/switch-to-terminal)
-       (if (file-remote-p current-dir)
-           (let ((v (tramp-dissect-file-name current-dir t)))
-             (format "ssh %s@%s\n"
-                     (aref v 1) (aref v 2)))
-         (format "cd '%s'\n" current-dir)))))
   (setq dired-dwim-target t)
   (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
   (setq dired-omit-files "^\\...+$")
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
   :bind (("C-x C-j" . dired-jump))
   :bind (:map dired-mode-map
-              ("'" . tom/dired-open-term)
+              ("'" . multi-term)
               ("j" . swiper)
               ("s" . swiper)))
 
@@ -260,6 +258,10 @@
   (set-face-attribute 'font-lock-function-name-face nil :box 1)
   (set-face-attribute
    'comint-highlight-input nil :foreground "#0000FF" :background "#DDDDFF")
+  (set-face-attribute
+   'term nil :foreground "#000000" :background "#DDFFFF")
+  (set-face-attribute
+   'dired-directory nil :foreground "#0000FF" :background "#FFDDDD")
   (set-face-attribute
    'comint-highlight-prompt nil :foreground "#80000" :background "#FFFFAF")
   (set-face-attribute 'mode-line nil :font "Iosevka-11")
@@ -449,3 +451,6 @@
 
 ;; load private configurations
 (load "~/Dropbox/Config/emacs/private.el" t)
+
+;; start emacsclient server
+(server-start)
