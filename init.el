@@ -267,9 +267,10 @@
   (set-face-attribute 'mode-line nil :font "Iosevka-11")
   (set-face-attribute 'mode-line-inactive nil :font "Iosevka-11")
   (set-face-attribute 'default nil :font "Iosevka-16")
+  (set-background-color "FloralWhite")
   (defun my-minibuffer-setup ()
-       (set (make-local-variable 'face-remapping-alist)
-          '((default :height 1.1))))
+    (set (make-local-variable 'face-remapping-alist)
+         '((default :height 1.1))))
   (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup))
 
 (use-package highlight-indentation
