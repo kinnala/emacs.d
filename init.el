@@ -256,6 +256,7 @@
   (global-hl-line-mode)
   (set-face-attribute 'font-lock-type-face nil :box 1)
   (set-face-attribute 'font-lock-function-name-face nil :box 1)
+  (set-face-attribute 'font-lock-constant-face nil :box 1)
   (set-face-attribute
    'comint-highlight-input nil :foreground "#0000FF" :background "#DDDDFF")
   (set-face-attribute
