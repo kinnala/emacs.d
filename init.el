@@ -76,7 +76,7 @@
 (use-package ivy
   :init
   (ivy-mode 1)
-  (setq ivy-height 12
+  (setq ivy-height 20
 	ivy-fixed-height-minibuffer t
        	ivy-use-virtual-buffers t)
   :bind (("C-x b" . ivy-switch-buffer)
@@ -89,6 +89,7 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c g" . counsel-rg)
          ("C-c G" . counsel-git)
+         ("C-x b" . counsel-ibuffer)
          ("M-y" . counsel-yank-pop))
   :bind (:map python-mode-map
               ("C-c C-j" . counsel-imenu))
@@ -326,10 +327,29 @@
 (use-package restclient)
 
 (use-package ob-restclient
-  :after org
+  :after (org restclient)
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages '((restclient . t))))
+
+(use-package julia-mode)
+
+(use-package lsp-julia
+  :straight (lsp-julia
+	     :type git
+	     :host github
+	     :repo "non-Jedi/lsp-julia")
+  :init
+  (setq exec-path (append exec-path '("~/Downloads/julia-1.1.1-linux-x86_64/julia-1.1.1/bin")))
+  (setq lsp-julia-default-environment "~/.julia/environments/v1.1")
+  :bind
+  (("M-." . lsp-find-definition)))
+
+(use-package lsp-mode
+  :hook (julia-mode . lsp)
+  :commands lsp
+  :init
+  (setq lsp-enable-snippet nil))
 
 ;; useful functions
 
