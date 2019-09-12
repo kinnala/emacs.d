@@ -81,18 +81,15 @@
        	ivy-use-virtual-buffers t)
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-c r" . ivy-resume)
-	 ("C-x C-b" . ivy-switch-buffer)))
+	 ("C-x C-b" . ibuffer)))
 
 (use-package counsel
-  :after python
   :bind (("M-x" . counsel-M-x)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c g" . counsel-rg)
          ("C-c G" . counsel-git)
          ("C-x b" . counsel-ibuffer)
          ("M-y" . counsel-yank-pop))
-  :bind (:map python-mode-map
-              ("C-c C-j" . counsel-imenu))
   :init (setq counsel-find-file-ignore-regexp "\\archive\\'"))
 
 (use-package swiper
@@ -107,9 +104,6 @@
   :bind (("C-x g" . magit-status)
          ("C-c M-g" . magit-file-dispatch)
          ("C-c l" . magit-list-repositories)))
-
-(use-package forge
-  :after magit)
 
 (use-package which-key
   :init (which-key-mode))
@@ -237,7 +231,6 @@
   :straight f
   :init
   (setq dired-dwim-target t)
-  (add-hook 'dired-mode-hook (lambda () (dired-hide-details-mode)))
   (setq dired-omit-files "^\\...+$")
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
   :bind (("C-x C-j" . dired-jump))
@@ -259,13 +252,9 @@
   (set-face-attribute 'font-lock-function-name-face nil :box 1)
   (set-face-attribute 'font-lock-constant-face nil :box 1)
   (set-face-attribute
-   'comint-highlight-input nil :foreground "#0000FF" :background "#DDDDFF")
-  (set-face-attribute
    'term nil :foreground "#000000" :background "#DDFFFF")
   (set-face-attribute
    'dired-directory nil :foreground "#0000FF" :background "#FFDDDD")
-  (set-face-attribute
-   'comint-highlight-prompt nil :foreground "#80000" :background "#FFFFAF")
   (set-face-attribute 'mode-line nil :font "Iosevka-11")
   (set-face-attribute 'mode-line-inactive nil :font "Iosevka-11")
   (set-face-attribute 'default nil :font "Iosevka-16")
@@ -331,25 +320,6 @@
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages '((restclient . t))))
-
-(use-package julia-mode)
-
-(use-package lsp-julia
-  :straight (lsp-julia
-	     :type git
-	     :host github
-	     :repo "non-Jedi/lsp-julia")
-  :init
-  (setq exec-path (append exec-path '("~/Downloads/julia-1.1.1-linux-x86_64/julia-1.1.1/bin")))
-  (setq lsp-julia-default-environment "~/.julia/environments/v1.1")
-  :bind
-  (("M-." . lsp-find-definition)))
-
-(use-package lsp-mode
-  :hook (julia-mode . lsp)
-  :commands lsp
-  :init
-  (setq lsp-enable-snippet nil))
 
 ;; useful functions
 
