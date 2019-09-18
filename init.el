@@ -88,7 +88,7 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c g" . counsel-rg)
          ("C-c G" . counsel-git)
-         ("C-x b" . counsel-ibuffer)
+         ("C-x b" . counsel-switch-buffer)
          ("M-y" . counsel-yank-pop))
   :init (setq counsel-find-file-ignore-regexp "\\archive\\'"))
 
@@ -243,6 +243,8 @@
   :after org)
 
 (use-package request)
+
+(use-package json-mode)
 
 (use-package leuven-theme
   :init
