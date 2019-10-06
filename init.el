@@ -331,6 +331,8 @@
   (org-babel-do-load-languages
    'org-babel-load-languages '((restclient . t))))
 
+(use-package htmlize)
+
 ;; useful functions
 
 (defun tom/unfill-paragraph (&optional region)
