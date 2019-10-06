@@ -41,7 +41,6 @@
                              ("~/Dropbox/Notes/gtd/tickler.org" . (:maxlevel . 1)))
         org-log-done 'time
         org-tags-column 0
-        org-startup-indented t
         org-export-babel-evaluate nil
         org-refile-use-outline-path 'file
         org-outline-path-complete-in-steps nil
@@ -61,7 +60,10 @@
                                            (:epilogue . ":"))
         org-capture-templates '(("t" "Todo" entry
                                  (file "~/Dropbox/Notes/gtd/inbox.org")
-                                 "* TODO %?\n  %i\n  %a")))
+                                 "* TODO %?\n  %i\n  %a")
+                                ("a" "Appointment" entry
+                                 (file "~/Dropbox/Notes/gtd/inbox.org")
+                                 "* %?\n  %i\n  %a")))
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda)))
 
@@ -89,6 +91,7 @@
 	 ("C-c g" . counsel-rg)
          ("C-c G" . counsel-git)
          ("C-x b" . counsel-switch-buffer)
+         ("C-c h" . counsel-minibuffer-history)
          ("M-y" . counsel-yank-pop))
   :init (setq counsel-find-file-ignore-regexp "\\archive\\'"))
 
@@ -292,7 +295,10 @@
 
 (use-package wgrep)
 
-(use-package csv-mode)
+(use-package csv-mode
+  :mode "\\.csv$"
+  :init
+  (setq csv-separators '(";")))
 
 (use-package rainbow-delimiters
   :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
