@@ -402,26 +402,15 @@
 ;; set default fill width (e.g. M-q)
 (setq-default fill-column 80)
 
-;; display time in modeline
-(display-time-mode 1)
+;; hide modeline
+(setq-default mode-line-format nil)
 
-;; display column number in modeline
-(column-number-mode 1)
-
-;; define a new default modeline
-(setq-default mode-line-format
-              '("%e"
-                mode-line-front-space
-                mode-line-client
-                mode-line-modified
-                " "
-                mode-line-directory
-                mode-line-buffer-identification
-                " "
-                mode-line-position
-                " "
-                mode-line-misc-info
-                mode-line-end-spaces))
+;; window dividers
+(fringe-mode 0)
+(setq window-divider-default-places t
+      window-divider-default-bottom-width 1
+      window-divider-default-right-width 1)
+(window-divider-mode 1)
 
 ;; put all backups to same directory to not clutter directories
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -452,6 +441,7 @@
 
 ;; start emacs frames maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
 ;; change emacs frame by number
 (defun tom/select-frame (n)
@@ -459,7 +449,8 @@
   (let ((frame (nth n (reverse (frame-list)))))
     (if frame
         (select-frame-set-input-focus frame)
-      (select-frame-set-input-focus (make-frame)))))
+      (select-frame-set-input-focus (make-frame))
+      (toggle-frame-fullscreen))))
 
 (define-key global-map (kbd "M-1") (lambda () (interactive) (tom/select-frame 0)))
 (define-key global-map (kbd "M-2") (lambda () (interactive) (tom/select-frame 1)))
