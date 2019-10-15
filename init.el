@@ -117,8 +117,7 @@
 (use-package anaconda-mode
   :init
   (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-  (add-hook 'python-mode-hook 'display-line-numbers-mode))
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
 (use-package expand-region
   :bind ("C-." . er/expand-region)
@@ -423,7 +422,10 @@
 ;; put all backups to same directory to not clutter directories
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;; browse in firefox
+;; display line numbers
+(global-display-line-numbers-mode)
+
+;; browse in chrome
 (setq browse-url-browser-function 'browse-url-chromium)
 
 ;; don't fontify latex
@@ -460,10 +462,22 @@
       (select-frame-set-input-focus (make-frame))
       (toggle-frame-fullscreen))))
 
-(define-key global-map (kbd "M-1") (lambda () (interactive) (tom/select-frame 0)))
-(define-key global-map (kbd "M-2") (lambda () (interactive) (tom/select-frame 1)))
-(define-key global-map (kbd "M-3") (lambda () (interactive) (tom/select-frame 2)))
-(define-key global-map (kbd "M-4") (lambda () (interactive) (tom/select-frame 3)))
+(define-key global-map
+  (kbd "M-1")
+  (lambda () (interactive)
+    (tom/select-frame 0)))
+(define-key global-map
+  (kbd "M-2")
+  (lambda () (interactive)
+    (tom/select-frame 1)))
+(define-key global-map
+  (kbd "M-3")
+  (lambda () (interactive)
+    (tom/select-frame 2)))
+(define-key global-map
+  (kbd "M-4")
+  (lambda () (interactive)
+    (tom/select-frame 3)))
 
 ;; load private configurations
 (load "~/Dropbox/Config/emacs/private.el" t)
