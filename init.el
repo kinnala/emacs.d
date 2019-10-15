@@ -265,7 +265,7 @@
    'dired-directory nil :foreground "#0000FF" :background "#FFDDDD")
   (set-face-attribute 'mode-line nil :font "Iosevka-11")
   (set-face-attribute 'mode-line-inactive nil :font "Iosevka-11")
-  (set-face-attribute 'default nil :font "Iosevka-16")
+  (set-face-attribute 'default nil :font "Iosevka-15")
   (setq initial-frame-alist '(
                               (mouse-color           . "midnightblue")
                               (foreground-color      . "grey20")
