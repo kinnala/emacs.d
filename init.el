@@ -259,6 +259,10 @@
   (set-face-attribute
    'term nil :foreground "#000000" :background "#DDFFFF")
   (set-face-attribute
+   'diredfl-compressed-file-suffix nil :foreground "#000000")
+  (set-face-attribute
+   'diredfl-dir-name nil :foreground "#000000")
+  (set-face-attribute
    'dired-directory nil :foreground "#0000FF" :background "#FFDDDD")
   (set-face-attribute 'mode-line nil :font "Iosevka-11")
   (set-face-attribute 'mode-line-inactive nil :font "Iosevka-11")
@@ -332,6 +336,10 @@
    'org-babel-load-languages '((restclient . t))))
 
 (use-package htmlize)
+
+(use-package diredfl
+  :init
+  (diredfl-global-mode))
 
 ;; useful functions
 
