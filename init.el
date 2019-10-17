@@ -260,7 +260,7 @@
   (set-face-attribute
    'diredfl-compressed-file-suffix nil :foreground "#000000")
   (set-face-attribute
-   'diredfl-dir-name nil :foreground "#0000FF" :background "#FFDDDD" :box 1)
+   'diredfl-dir-name nil :foreground "#000000" :background "#FFDDDD" :box 1)
   (set-face-attribute
    'diredfl-dir-heading nil :foreground "#777777" :background nil)
   (set-face-attribute
