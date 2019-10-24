@@ -42,6 +42,7 @@
         org-log-done 'time
         org-tags-column 0
         org-export-babel-evaluate nil
+        org-adapt-indentation nil
         org-refile-use-outline-path 'file
         org-outline-path-complete-in-steps nil
         org-duration-format '(("d" . nil) ("h" . t) (special . 2))
@@ -260,7 +261,7 @@
   (set-face-attribute
    'diredfl-compressed-file-suffix nil :foreground "#000000")
   (set-face-attribute
-   'diredfl-dir-name nil :foreground "#000000" :background "#FFDDDD" :box 1)
+   'diredfl-dir-name nil :foreground "#000000" :background "#FFDDDD" :box nil)
   (set-face-attribute
    'diredfl-dir-heading nil :foreground "#777777" :background nil)
   (set-face-attribute
