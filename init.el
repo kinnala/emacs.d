@@ -250,6 +250,7 @@
 (use-package json-mode)
 
 (use-package leuven-theme
+  :after diredfl
   :init
   (load-theme 'leuven t)
   (global-hl-line-mode)
