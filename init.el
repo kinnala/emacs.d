@@ -327,6 +327,10 @@
 (use-package virtualenvwrapper
   :init
   (setq venv-location "~/src/venv")
+  (add-hook 'venv-postactivate-hook
+            (lambda () (setq flycheck-python-pylint-executable
+                              (s-concat python-shell-virtualenv-root
+                                        "bin/pylint"))))
   :bind ("C-c w" . venv-workon))
 
 (use-package symbol-overlay
