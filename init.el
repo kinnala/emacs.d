@@ -205,7 +205,8 @@
               ("C-c <" . tom/shift-left)
               ("C-c >" . tom/shift-right)))
 
-(use-package flycheck)
+(use-package flycheck
+  :init (global-flycheck-mode))
 
 (use-package term
   :straight f
