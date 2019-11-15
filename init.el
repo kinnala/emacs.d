@@ -362,7 +362,7 @@
 ;; useful functions
 
 (defun tom/unfill-paragraph (&optional region)
-  "Takes a multi-line paragraph and makes it into a single line of text."
+  "Take REGION and turn it into a single line of text."
   (interactive (progn (barf-if-buffer-read-only) '(t)))
   (let ((fill-column (point-max))
         (emacs-lisp-docstring-fill-column t))
@@ -474,6 +474,7 @@
 
 ;; change emacs frame by number
 (defun tom/select-frame (n)
+  "Select frame identified by the number N."
   (interactive)
   (let ((frame (nth n (reverse (frame-list)))))
     (if frame
