@@ -229,10 +229,8 @@
 (use-package dired-x
   :straight f)
 
-(use-package multi-term)
-
 (use-package dired
-  :after (term multi-term dired-x)
+  :after (term dired-x)
   :straight f
   :init
   (setq dired-dwim-target t)
@@ -240,7 +238,7 @@
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
   :bind (("C-x C-j" . dired-jump))
   :bind (:map dired-mode-map
-              ("'" . multi-term)
+              ("'" . ansi-term)
               ("j" . swiper)
               ("s" . swiper)))
 
