@@ -90,6 +90,7 @@
   :bind (("M-x" . counsel-M-x)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-c g" . counsel-rg)
+	 ("C-c f" . counsel-file-jump)
          ("C-c G" . counsel-git)
          ("C-x b" . counsel-switch-buffer)
          ("C-c h" . counsel-minibuffer-history)
