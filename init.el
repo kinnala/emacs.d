@@ -350,6 +350,11 @@
   :init
   (diredfl-global-mode))
 
+(use-package magit-annex)
+
+(use-package python-pytest
+  :bind ("C-c t" . python-pytest-popup))
+
 ;; useful functions
 
 (defun tom/unfill-paragraph (&optional region)
