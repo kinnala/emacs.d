@@ -273,8 +273,8 @@
    'diredfl-exec-priv nil :foreground "#000000" :background "#9999FF")
   (set-face-attribute
    'dired-directory nil :foreground "#0000FF" :background "#FFDDDD" :box 1)
-  (set-face-attribute 'mode-line nil :font "Iosevka-11")
-  (set-face-attribute 'mode-line-inactive nil :font "Iosevka-11")
+  (set-face-attribute 'mode-line nil :font "Iosevka-9" :background "#000000")
+  (set-face-attribute 'mode-line-inactive nil :font "Iosevka-9")
   (set-face-attribute 'default nil :font "Iosevka-15")
   (setq initial-frame-alist '(
                               (mouse-color           . "midnightblue")
@@ -420,7 +420,7 @@
 (setq-default fill-column 80)
 
 ;; hide modeline
-(setq-default mode-line-format nil)
+(setq-default mode-line-format '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position (vc-mode vc-mode) "  " mode-line-misc-info mode-line-end-spaces))
 
 ;; window dividers
 (fringe-mode 0)
