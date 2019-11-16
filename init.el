@@ -262,7 +262,7 @@
   (set-face-attribute
    'diredfl-compressed-file-suffix nil :foreground "#000000")
   (set-face-attribute
-   'diredfl-dir-name nil :foreground "#000000" :background "#FFDDDD" :box nil)
+   'diredfl-dir-name nil :foreground "#000000" :background "#d7cee0" :box nil)
   (set-face-attribute
    'diredfl-dir-heading nil :foreground "#777777" :background nil)
   (set-face-attribute
@@ -271,11 +271,9 @@
    'diredfl-read-priv nil :foreground "#000000" :background "#99FF99")
   (set-face-attribute
    'diredfl-exec-priv nil :foreground "#000000" :background "#9999FF")
-  (set-face-attribute
-   'dired-directory nil :foreground "#0000FF" :background "#FFDDDD" :box 1)
-  (set-face-attribute 'mode-line nil :font "Iosevka-9" :background "#000000")
-  (set-face-attribute 'mode-line-inactive nil :font "Iosevka-9")
-  (set-face-attribute 'default nil :font "Iosevka-15")
+  (set-face-attribute 'mode-line nil :font "Iosevka-9" :background "#60536e")
+  (set-face-attribute 'mode-line-inactive nil :font "Iosevka-9" :background "#bcb5c4")
+  (set-face-attribute 'default nil :font "Iosevka-13")
   (setq initial-frame-alist '(
                               (mouse-color           . "midnightblue")
                               (foreground-color      . "grey20")
@@ -294,6 +292,10 @@
     (set (make-local-variable 'face-remapping-alist)
          '((default :height 1.1))))
   (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup))
+
+(use-package doom-modeline
+  :init (setq doom-modeline-height 20)
+  :hook (after-init . doom-modeline-mode))
 
 (use-package highlight-indentation
   :init
