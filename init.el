@@ -471,8 +471,8 @@
 (unbind-key "C-z" global-map)
 
 ;; start emacs frames maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
 ;; change emacs frame by number
 (defun tom/select-frame (n)
