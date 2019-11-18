@@ -79,7 +79,7 @@
 (use-package ivy
   :init
   (ivy-mode 1)
-  (setq ivy-height 20
+  (setq ivy-height 30
 	ivy-fixed-height-minibuffer t
        	ivy-use-virtual-buffers t)
   :bind (("C-x b" . ivy-switch-buffer)
@@ -271,8 +271,8 @@
    'diredfl-read-priv nil :foreground "#000000" :background "#99FF99")
   (set-face-attribute
    'diredfl-exec-priv nil :foreground "#000000" :background "#9999FF")
-  (set-face-attribute 'mode-line nil :font "Iosevka-9" :background "#60536e")
-  (set-face-attribute 'mode-line-inactive nil :font "Iosevka-9" :background "#bcb5c4")
+  (set-face-attribute 'mode-line nil :font "Iosevka-9" :background "#000000")
+  (set-face-attribute 'mode-line-inactive nil :font "Iosevka-9" :background "#999999")
   (set-face-attribute 'default nil :font "Iosevka-13")
   (setq initial-frame-alist '(
                               (mouse-color           . "midnightblue")
@@ -290,7 +290,7 @@
                               (top . 30) (left . 150) (width . 89) (height . 56)))
   (defun my-minibuffer-setup ()
     (set (make-local-variable 'face-remapping-alist)
-         '((default :height 1.1))))
+         '((default :height 1.0))))
   (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup))
 
 (use-package doom-modeline
@@ -439,6 +439,9 @@
       window-divider-default-bottom-width 1
       window-divider-default-right-width 1)
 (window-divider-mode 1)
+
+;; display time in modeline
+(display-time-mode)
 
 ;; put all backups to same directory to not clutter directories
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
