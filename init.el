@@ -273,7 +273,7 @@
    'diredfl-exec-priv nil :foreground "#000000" :background "#9999FF")
   (set-face-attribute 'mode-line nil :font "Iosevka-9" :background "#000000")
   (set-face-attribute 'mode-line-inactive nil :font "Iosevka-9" :background "#999999")
-  (set-face-attribute 'default nil :font "Iosevka-13")
+  (set-face-attribute 'default nil :font "Iosevka-15")
   (setq initial-frame-alist '(
                               (mouse-color           . "midnightblue")
                               (foreground-color      . "grey20")
