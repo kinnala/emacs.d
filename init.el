@@ -444,7 +444,7 @@
 (window-divider-mode 1)
 
 ;; display time in modeline
-(display-time-mode)
+(display-time-mode 1)
 
 ;; put all backups to same directory to not clutter directories
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
