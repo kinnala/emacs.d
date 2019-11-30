@@ -361,10 +361,17 @@
   :init
   (diredfl-global-mode))
 
-(use-package magit-annex)
-
 (use-package python-pytest
   :bind ("C-c t" . python-pytest-popup))
+
+(use-package dired-k
+  :after (dired)
+  :bind (:map dired-mode-map
+              ("K" . dired-k)
+              ("g" . dired-k))
+  :init
+  (add-hook 'dired-initial-position-hook 'dired-k)
+  (add-hook 'dired-after-readin-hook #'dired-k-no-revert))
 
 ;; useful functions
 
