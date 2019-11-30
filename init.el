@@ -102,6 +102,8 @@
 
 (use-package ivy-hydra)
 
+(use-package transient)
+
 (use-package magit
   :init
   (setq magit-repository-directories '(("~/src" . 1)
