@@ -299,7 +299,7 @@
   (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup))
 
 (use-package doom-modeline
-  :init (setq doom-modeline-height 20)
+  :init (setq doom-modeline-height 25)
   :hook (after-init . doom-modeline-mode))
 
 (use-package highlight-indentation
