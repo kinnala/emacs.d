@@ -37,7 +37,6 @@
         org-agenda-files '("~/Dropbox/Notes/gtd/inbox.org"
                            "~/Dropbox/Notes/gtd/tickler.org")
         org-refile-targets '(("~/Dropbox/Notes/gtd/inbox.org" . (:maxlevel . 1))
-                             ("~/Dropbox/Notes/gtd/someday.org" . (:maxlevel . 1))
                              ("~/Dropbox/Notes/gtd/tickler.org" . (:maxlevel . 1)))
         org-log-done 'time
         org-tags-column 0
@@ -61,10 +60,7 @@
                                            (:epilogue . ":"))
         org-capture-templates '(("t" "Todo" entry
                                  (file "~/Dropbox/Notes/gtd/inbox.org")
-                                 "* TODO %?\n  %i\n  %a")
-                                ("a" "Appointment" entry
-                                 (file "~/Dropbox/Notes/gtd/inbox.org")
-                                 "* %?\n  %i\n  %a")))
+                                 "* TODO %?\n  %i\n  %a")))
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda)))
 
