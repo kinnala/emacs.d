@@ -60,7 +60,10 @@
                                            (:epilogue . ":"))
         org-capture-templates '(("t" "Todo" entry
                                  (file "~/Dropbox/Notes/gtd/inbox.org")
-                                 "* TODO %?\n  %i\n  %a")))
+                                 "* TODO %?\n%i\n%a")
+                                ("k" "Entry" entry
+                                 (file "~/Dropbox/Notes/gtd/inbox.org")
+                                 "* %?\n%t")))
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda)))
 
