@@ -297,18 +297,12 @@
          '((default :height 1.0))))
   (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup))
 
-(use-package doom-modeline
-  :init (setq doom-modeline-height 25)
-  :hook (after-init . doom-modeline-mode))
-
 (use-package highlight-indentation
   :init
   (defun set-hl-indent-color ()
     (set-face-background 'highlight-indentation-face "#ededdc"))
-  (add-hook 'python-mode-hook 'highlight-indentation-mode)
-  (add-hook 'python-mode-hook 'set-hl-indent-color)
-  (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
-  (add-hook 'yaml-mode-hook 'set-hl-indent-color))
+  (add-hook 'prog-mode-hook 'highlight-indentation-mode)
+  (add-hook 'prog-mode-hook 'set-hl-indent-color))
 
 (use-package yaml-mode)
 
@@ -339,13 +333,6 @@
                                         "bin/pylint"))))
   :bind ("C-c w" . venv-workon))
 
-(use-package symbol-overlay
-  :init (add-hook 'prog-mode-hook 'symbol-overlay-mode)
-  :bind (("<f7>" . symbol-overlay-put)
-         ("M-n" . symbol-overlay-switch-forward)
-         ("M-p" . symbol-overlay-switch-backward)
-         ("<f8>" . symbol-overlay-remove-all)))
-
 (use-package restclient)
 
 (use-package ob-restclient
@@ -366,11 +353,7 @@
 (use-package dired-k
   :after (dired)
   :bind (:map dired-mode-map
-              ("K" . dired-k)
-              ("g" . dired-k))
-  :init
-  (add-hook 'dired-initial-position-hook 'dired-k)
-  (add-hook 'dired-after-readin-hook #'dired-k-no-revert))
+              ("g" . dired-k)))
 
 ;; useful functions
 
@@ -433,16 +416,13 @@
 ;; control indentation
 (setq-default indent-tabs-mode nil)
 (setq tab-width 4)
-(defvaralias 'c-basic-offset 'tab-width)
+(setq c-basic-offset 4)
 
 ;; modify scroll settings
 (setq scroll-preserve-screen-position t)
 
 ;; set default fill width (e.g. M-q)
 (setq-default fill-column 80)
-
-;; hide modeline
-(setq-default mode-line-format '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position (vc-mode vc-mode) "  " mode-line-misc-info mode-line-end-spaces))
 
 ;; window dividers
 (fringe-mode 0)
