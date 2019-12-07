@@ -239,7 +239,7 @@
   (defun run-gnome-terminal-here ()
     (interactive)
     (shell-command "gnome-terminal"))
-  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+;;  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
   :bind (("C-x C-j" . dired-jump))
   :bind (:map dired-mode-map
               ("'" . run-gnome-terminal-here)
