@@ -266,15 +266,15 @@
   (set-face-attribute
    'diredfl-compressed-file-suffix nil :foreground "#000000")
   (set-face-attribute
-   'diredfl-dir-name nil :foreground "#000000" :background "#d7cee0" :box nil)
+   'diredfl-dir-name nil :foreground "#000000" :background "#FFDDDD" :box nil)
   (set-face-attribute
-   'diredfl-dir-heading nil :foreground "#777777" :background nil)
+   'diredfl-dir-heading nil :foreground "#000000" :background "#FFDDDD")
   (set-face-attribute
-   'diredfl-write-priv nil :foreground "#000000" :background "#FF9999")
+   'diredfl-write-priv nil :foreground "#000000" :background "#FFDDDD")
   (set-face-attribute
-   'diredfl-read-priv nil :foreground "#000000" :background "#99FF99")
+   'diredfl-read-priv nil :foreground "#000000" :background "#DDFFDD")
   (set-face-attribute
-   'diredfl-exec-priv nil :foreground "#000000" :background "#9999FF")
+   'diredfl-exec-priv nil :foreground "#000000" :background "#DDDDDFF")
   (set-face-attribute 'mode-line nil :font "Iosevka-10")
   (set-face-attribute 'mode-line-inactive nil :font "Iosevka-10")
   (set-face-attribute 'default nil :font "Iosevka-15")
