@@ -117,11 +117,6 @@
 (use-package exec-path-from-shell
   :init (exec-path-from-shell-initialize))
 
-(use-package anaconda-mode
-  :init
-  (add-hook 'python-mode-hook 'anaconda-mode)
-  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-
 (use-package expand-region
   :bind ("C-." . er/expand-region)
   :init
@@ -206,9 +201,6 @@
               ("C-c <" . tom/shift-left)
               ("C-c >" . tom/shift-right)))
 
-(use-package flycheck
-  :init (global-flycheck-mode))
-
 (use-package term
   :straight f
   :init
@@ -239,7 +231,6 @@
   (defun run-gnome-terminal-here ()
     (interactive)
     (shell-command "gnome-terminal"))
-;;  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
   :bind (("C-x C-j" . dired-jump))
   :bind (:map dired-mode-map
               ("'" . run-gnome-terminal-here)
@@ -327,10 +318,6 @@
 (use-package virtualenvwrapper
   :init
   (setq venv-location "~/src/venv")
-  (add-hook 'venv-postactivate-hook
-            (lambda () (setq flycheck-python-pylint-executable
-                              (s-concat python-shell-virtualenv-root
-                                        "bin/pylint"))))
   :bind ("C-c w" . venv-workon))
 
 (use-package restclient)
@@ -354,6 +341,23 @@
   :after (dired)
   :bind (:map dired-mode-map
               ("g" . dired-k)))
+
+(use-package lsp-python-ms
+  :init
+  (setq lsp-enable-snippet nil)
+  (when (load "flymake" t)
+    (defun flymake-pylint-init ()
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name))))
+        (list "epylint" (list local-file))))
+    (add-to-list 'flymake-allowed-file-name-masks
+                 '("\\.py\\'" flymake-pylint-init)))
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp))))
 
 ;; useful functions
 
