@@ -33,11 +33,25 @@
   (add-hook 'org-mode-hook (lambda () (org-babel-do-load-languages
                                        'org-babel-load-languages '((python . t)
                                                                    (shell . t)))))
+  (add-hook 'org-agenda-finalize-hook
+            (lambda ()
+              (save-excursion
+                (color-org-header "inbox:" "azure" "black")
+                (color-org-header "work:" "RosyBrown1" "red"))))
+  (defun color-org-header (tag backcolor forecolor)
+    ""
+    (interactive)
+    (goto-char (point-min))
+    (while (re-search-forward tag nil t)
+      (add-text-properties (match-beginning 0) (+ (match-beginning 0) 10)
+                           `(face (:background, backcolor, :foreground, forecolor)))))
   (setq org-default-notes-file "~/Dropbox/Notes/gtd/inbox.org"
         org-agenda-files '("~/Dropbox/Notes/gtd/inbox.org"
-                           "~/Dropbox/Notes/gtd/tickler.org")
+                           "~/Dropbox/Notes/gtd/tickler.org"
+                           "~/Dropbox/Notes/gtd/work.org")
         org-refile-targets '(("~/Dropbox/Notes/gtd/inbox.org" . (:maxlevel . 1))
-                             ("~/Dropbox/Notes/gtd/tickler.org" . (:maxlevel . 1)))
+                             ("~/Dropbox/Notes/gtd/tickler.org" . (:maxlevel . 1))
+                             ("~/Dropbox/Notes/gtd/work.org" . (:maxlevel . 1)))
         org-log-done 'time
         org-tags-column 0
         org-export-babel-evaluate nil
