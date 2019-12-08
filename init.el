@@ -37,7 +37,8 @@
             (lambda ()
               (save-excursion
                 (color-org-header "inbox:" "azure" "black")
-                (color-org-header "work:" "RosyBrown1" "red"))))
+                (color-org-header "work:" "RosyBrown1" "red")
+                (color-org-header "research:" "LimeGreen" "DarkGreen"))))
   (defun color-org-header (tag backcolor forecolor)
     ""
     (interactive)
@@ -48,9 +49,11 @@
   (setq org-default-notes-file "~/Dropbox/Notes/gtd/inbox.org"
         org-agenda-files '("~/Dropbox/Notes/gtd/inbox.org"
                            "~/Dropbox/Notes/gtd/tickler.org"
+                           "~/Dropbox/Notes/gtd/research.org"
                            "~/Dropbox/Notes/gtd/work.org")
         org-refile-targets '(("~/Dropbox/Notes/gtd/inbox.org" . (:maxlevel . 1))
                              ("~/Dropbox/Notes/gtd/tickler.org" . (:maxlevel . 1))
+                             ("~/Dropbox/Notes/gtd/research.org" . (:maxlevel . 1))
                              ("~/Dropbox/Notes/gtd/work.org" . (:maxlevel . 1)))
         org-log-done 'time
         org-tags-column 0
