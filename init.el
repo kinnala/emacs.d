@@ -36,9 +36,9 @@
   (add-hook 'org-agenda-finalize-hook
             (lambda ()
               (save-excursion
-                (color-org-header "inbox:" "azure" "black")
-                (color-org-header "work:" "RosyBrown1" "red")
-                (color-org-header "research:" "LimeGreen" "DarkGreen"))))
+                (color-org-header "inbox:" "#DDDDFF" "black")
+                (color-org-header "work:" "#FFDDDD" "red")
+                (color-org-header "research:" "#DDFFDD" "DarkGreen"))))
   (defun color-org-header (tag backcolor forecolor)
     ""
     (interactive)
@@ -77,7 +77,7 @@
                                            (:epilogue . ":"))
         org-capture-templates '(("t" "Todo" entry
                                  (file "~/Dropbox/Notes/gtd/inbox.org")
-                                 "* TODO %?\n%i\n%a")
+                                 "* TODO %?\n  SCHEDULED: %t\n%i\n%a")
                                 ("k" "Entry" entry
                                  (file "~/Dropbox/Notes/gtd/inbox.org")
                                  "* %?\n%t")))
@@ -337,6 +337,14 @@
   (setq venv-location "~/src/venv")
   :bind ("C-c w" . venv-workon))
 
+(use-package conda
+  :init
+  (setq venv-location "~/miniconda3/envs/")
+  (setq conda-anaconda-home "~/miniconda3"))
+
+(use-package docker
+  :bind ("C-c d" . docker))
+
 (use-package restclient)
 
 (use-package ob-restclient
@@ -486,8 +494,8 @@
 (unbind-key "C-z" global-map)
 
 ;; start emacs frames maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 
 ;; change emacs frame by number
 (defun tom/select-frame (n)
