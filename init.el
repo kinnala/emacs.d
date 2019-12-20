@@ -95,7 +95,7 @@
 (use-package ivy
   :init
   (ivy-mode 1)
-  (setq ivy-height 30
+  (setq ivy-height 10
 	ivy-fixed-height-minibuffer t
        	ivy-use-virtual-buffers t)
   :bind (("C-x b" . ivy-switch-buffer)
@@ -292,18 +292,14 @@
                               (background-color      . "FloralWhite")
                               (internal-border-width . 2)
                               (line-spacing          . 1)
-                              (top . 20) (left . 650) (width . 91) (height . 60)))
+                              (top . 20) (left . 650) (width . 100) (height . 24)))
   (setq default-frame-alist '(
                               (border-color          . "#4e3832")
                               (foreground-color      . "grey10")
                               (background-color      . "FloralWhite")
                               (cursor-color          . "purple")
                               (cursor-type           . box)
-                              (top . 30) (left . 150) (width . 89) (height . 56)))
-  (defun my-minibuffer-setup ()
-    (set (make-local-variable 'face-remapping-alist)
-         '((default :height 1.0))))
-  (add-hook 'minibuffer-setup-hook 'my-minibuffer-setup))
+                              (top . 30) (left . 150) (width . 100) (height . 24))))
 
 (use-package highlight-indentation
   :init
