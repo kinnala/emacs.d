@@ -380,6 +380,8 @@
                          (require 'lsp-python-ms)
                          (lsp))))
 
+(use-package nix-mode)
+
 ;; useful functions
 
 (defun tom/unfill-paragraph (&optional region)
