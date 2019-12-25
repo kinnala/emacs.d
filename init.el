@@ -1,29 +1,7 @@
-;; install package manager
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el"
-                         user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; install org-mode
-
-(straight-use-package 'org)
-
-;; install use-package
-
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
-
-;; install and configure other packages
+(require 'package)
+(package-initialize 'noactivate)
+(eval-when-compile
+  (require 'use-package))
 
 (use-package org
   :commands org-babel-do-load-languages
@@ -84,19 +62,15 @@
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda)))
 
-(use-package s)
-
-(use-package f)
-
-(use-package dash)
-
 (use-package hydra)
 
 (use-package ivy
+  :commands
+  ivy-mode
   :init
   (ivy-mode 1)
-  (setq ivy-height 10
-	ivy-fixed-height-minibuffer t
+  (setq ivy-height 12
+        ivy-fixed-height-minibuffer t
        	ivy-use-virtual-buffers t)
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-c r" . ivy-resume)
@@ -104,9 +78,9 @@
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-c g" . counsel-rg)
-	 ("C-c f" . counsel-file-jump)
+         ("C-x C-f" . counsel-find-file)
+         ("C-c g" . counsel-rg)
+         ("C-c f" . counsel-file-jump)
          ("C-c G" . counsel-git)
          ("C-x b" . counsel-switch-buffer)
          ("C-c h" . counsel-minibuffer-history)
@@ -116,22 +90,21 @@
 (use-package swiper
   :bind ("C-c s" . swiper))
 
-(use-package ivy-hydra)
-
 (use-package transient)
 
 (use-package magit
   :init
-  (setq magit-repository-directories '(("~/src" . 1)
-                                       ("~/.emacs.d/straight/repos/" . 1)))
+  (setq magit-repository-directories '(("~/src" . 1)))
   :bind (("C-x g" . magit-status)
          ("C-c M-g" . magit-file-dispatch)
          ("C-c l" . magit-list-repositories)))
 
 (use-package which-key
+  :commands which-key-mode
   :init (which-key-mode))
 
 (use-package exec-path-from-shell
+  :commands exec-path-from-shell-initialize
   :init (exec-path-from-shell-initialize))
 
 (use-package expand-region
@@ -166,82 +139,12 @@
   (define-key global-map (kbd "C-,") 'mc/mark-next-like-this)
   (define-key global-map (kbd "C-;") 'mc/mark-all-dwim))
 
-(use-package move-lines
-  :straight (move-lines
-	     :type git
-	     :host github
-	     :repo "kinnala/move-lines")
-  :after hydra
-  :init
-  (progn
-    (defun tom/shift-left (start end &optional count)
-      "Shift region left and activate hydra."
-      (interactive
-       (if mark-active
-           (list (region-beginning) (region-end) current-prefix-arg)
-         (list (line-beginning-position) (line-end-position) current-prefix-arg)))
-      (python-indent-shift-left start end count)
-      (tom/hydra-move-lines/body))
+(use-package term)
 
-    (defun tom/shift-right (start end &optional count)
-      "Shift region right and activate hydra."
-      (interactive
-       (if mark-active
-           (list (region-beginning) (region-end) current-prefix-arg)
-         (list (line-beginning-position) (line-end-position) current-prefix-arg)))
-      (python-indent-shift-right start end count)
-      (tom/hydra-move-lines/body))
-    
-    (defun tom/move-lines-p ()
-      "Move lines up once and activate hydra."
-      (interactive)
-      (move-lines-up 1)
-      (tom/hydra-move-lines/body))
-    
-    (defun tom/move-lines-n ()
-      "Move lines down once and activate hydra."
-      (interactive)
-      (move-lines-down 1)
-      (tom/hydra-move-lines/body))
-    
-    (defhydra tom/hydra-move-lines ()
-      "Move one or multiple lines"
-      ("n" move-lines-down "down")
-      ("p" move-lines-up "up")
-      ("<" python-indent-shift-left "left")
-      (">" python-indent-shift-right "right")))
-  
-  :bind (("C-c n" . tom/move-lines-n)
-	 ("C-c p" . tom/move-lines-p))
-
-  :bind (:map python-mode-map
-              ("C-c <" . tom/shift-left)
-              ("C-c >" . tom/shift-right)))
-
-(use-package term
-  :straight f
-  :init
-  (defun tom/toggle-line-mode ()
-    "Toggles term between line mode and char mode"
-    (interactive)
-    (if (term-in-line-mode)
-        (term-char-mode)
-      (term-line-mode)))
-  (add-hook 'term-mode-hook
-            (lambda () (define-key term-mode-map
-                         (kbd "C-c C-j")
-                         'tom/toggle-line-mode)))
-  (add-hook 'term-mode-hook
-            (lambda () (define-key term-raw-map
-                         (kbd "C-c C-j")
-                         'tom/toggle-line-mode))))
-
-(use-package dired-x
-  :straight f)
+(use-package dired-x)
 
 (use-package dired
   :after (term dired-x)
-  :straight f
   :init
   (setq dired-dwim-target t)
   (setq dired-omit-files "^\\...+$")
@@ -253,11 +156,6 @@
               ("'" . run-gnome-terminal-here)
               ("j" . swiper)
               ("s" . swiper)))
-
-(use-package ob-async
-  :after org)
-
-(use-package request)
 
 (use-package json-mode)
 
@@ -317,9 +215,6 @@
   :init
   (setq csv-separators '(";")))
 
-(use-package rainbow-delimiters
-  :init (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-
 (use-package phi-search
   :after multiple-cursors
   :init (require 'phi-replace)
@@ -327,16 +222,6 @@
   :bind (:map mc/keymap
               ("C-s" . phi-search)
               ("C-r" . phi-search-backward)))
-
-(use-package virtualenvwrapper
-  :init
-  (setq venv-location "~/src/venv")
-  :bind ("C-c w" . venv-workon))
-
-(use-package conda
-  :init
-  (setq venv-location "~/miniconda3/envs/")
-  (setq conda-anaconda-home "~/miniconda3"))
 
 (use-package docker
   :bind ("C-c d" . docker))
@@ -352,8 +237,8 @@
 (use-package htmlize)
 
 (use-package diredfl
-  :init
-  (diredfl-global-mode))
+  :commands diredfl-global-mode
+  :init (diredfl-global-mode))
 
 (use-package python-pytest
   :bind ("C-c t" . python-pytest-popup))
@@ -363,24 +248,130 @@
   :bind (:map dired-mode-map
               ("g" . dired-k)))
 
-(use-package lsp-python-ms
+(use-package anaconda-mode
   :init
-  (setq lsp-enable-snippet nil)
-  (when (load "flymake" t)
-    (defun flymake-pylint-init ()
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                         'flymake-create-temp-inplace))
-             (local-file (file-relative-name
-                          temp-file
-                          (file-name-directory buffer-file-name))))
-        (list "epylint" (list local-file))))
-    (add-to-list 'flymake-allowed-file-name-masks
-                 '("\\.py\\'" flymake-pylint-init)))
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp))))
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
 (use-package nix-mode)
+
+;; move lines, from https://github.com/kinnala/move-lines
+
+(defun move-lines--internal (n)
+  "Moves the current line or, if region is actives, the lines surrounding
+region, of N lines. Down if N is positive, up if is negative"
+  (let* (text-start
+         text-end
+         (region-start (point))
+         (region-end region-start)
+         swap-point-mark
+         delete-latest-newline)
+
+    ;; STEP 1: identifying the text to cut.
+    (when (region-active-p)
+      (if (> (point) (mark))
+          (setq region-start (mark))
+        (exchange-point-and-mark)
+        (setq swap-point-mark t
+              region-end (point))))
+
+    ;; text-end and region-end
+    (end-of-line)
+    ;; If point !< point-max, this buffers doesn't have the trailing newline.
+    (if (< (point) (point-max))
+        (forward-char 1)
+      (setq delete-latest-newline t)
+      (insert-char ?\n))
+    (setq text-end (point)
+          region-end (- region-end text-end))
+
+    ;; text-start and region-start
+    (goto-char region-start)
+    (beginning-of-line)
+    (setq text-start (point)
+          region-start (- region-start text-end))
+
+    ;; STEP 2: cut and paste.
+    (let ((text (delete-and-extract-region text-start text-end)))
+      (forward-line n)
+      ;; If the current-column != 0, I have moved the region at the bottom of a
+      ;; buffer doesn't have the trailing newline.
+      (when (not (= (current-column) 0))
+        (insert-char ?\n)
+        (setq delete-latest-newline t))
+      (insert text))
+
+    ;; STEP 3: Restoring.
+    (forward-char region-end)
+
+    (when delete-latest-newline
+      (save-excursion
+        (goto-char (point-max))
+        (delete-char -1)))
+
+    (when (region-active-p)
+      (setq deactivate-mark nil)
+      (set-mark (+ (point) (- region-start region-end)))
+      (if swap-point-mark
+          (exchange-point-and-mark)))))
+
+(defun move-lines-up (n)
+  "Moves the current line or, if region is actives, the lines surrounding
+region, up by N lines, or 1 line if N is nil."
+  (interactive "p")
+  (if (eq n nil)
+      (setq n 1))
+  (move-lines--internal (- n)))
+
+(defun move-lines-down (n)
+  "Moves the current line or, if region is actives, the lines surrounding
+region, down by N lines, or 1 line if N is nil."
+  (interactive "p")
+  (if (eq n nil)
+      (setq n 1))
+  (move-lines--internal n))
+
+(defun tom/shift-left (start end &optional count)
+  "Shift region left and activate hydra."
+  (interactive
+   (if mark-active
+       (list (region-beginning) (region-end) current-prefix-arg)
+     (list (line-beginning-position) (line-end-position) current-prefix-arg)))
+  (python-indent-shift-left start end count)
+  (tom/hydra-move-lines/body))
+
+(defun tom/shift-right (start end &optional count)
+  "Shift region right and activate hydra."
+  (interactive
+   (if mark-active
+       (list (region-beginning) (region-end) current-prefix-arg)
+     (list (line-beginning-position) (line-end-position) current-prefix-arg)))
+  (python-indent-shift-right start end count)
+  (tom/hydra-move-lines/body))
+
+(defun tom/move-lines-p ()
+  "Move lines up once and activate hydra."
+  (interactive)
+  (move-lines-up 1)
+  (tom/hydra-move-lines/body))
+
+(defun tom/move-lines-n ()
+  "Move lines down once and activate hydra."
+  (interactive)
+  (move-lines-down 1)
+  (tom/hydra-move-lines/body))
+
+(defhydra tom/hydra-move-lines ()
+  "Move one or multiple lines"
+  ("n" move-lines-down "down")
+  ("p" move-lines-up "up")
+  ("<" python-indent-shift-left "left")
+  (">" python-indent-shift-right "right"))
+
+(define-key global-map (kbd "C-c n") 'tom/move-lines-n)
+(define-key global-map (kbd "C-c p") 'tom/move-lines-p)
+(define-key global-map (kbd "C-c <") 'tom/shift-left)
+(define-key global-map (kbd "C-c >") 'tom/shift-right)
 
 ;; useful functions
 
@@ -491,10 +482,6 @@
 ;; unbind keys
 (unbind-key "C-z" global-map)
 
-;; start emacs frames maximized
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
-
 ;; change emacs frame by number
 (defun tom/select-frame (n)
   "Select frame identified by the number N."
@@ -524,6 +511,3 @@
 
 ;; load private configurations
 (load "~/Dropbox/Config/emacs/private.el" t)
-
-;; start emacsclient server
-(server-start)
