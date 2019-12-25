@@ -30,6 +30,7 @@ self: super: {
     ivy-pass
   ]) ++ (with epkgs.elpaPackages; [
     csv-mode
+    org
   ]) ++ [ (self.runCommand "default.el" {} ''
 mkdir -p $out/share/emacs/site-lisp
 cp ${self.emacs_config} $out/share/emacs/site-lisp/default.el
