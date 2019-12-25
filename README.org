@@ -6,12 +6,14 @@ I have a very simple Emacs configuration consisting of a single =init.el= and
 another private file with some work-related hardcoded paths that are unimportant
 for the general public. Some highlights:
 
-- straight.el as a package manager
+- using Nix as a package manager
 - consists mainly of use-package macros
 - used for Python development and random hacking
 
 * Installation
 
-Copy =init.el= to =~/.emacs.d/init.el= and restart Emacs.  Some of the
-configured paths (e.g. =org= and =virtualenvwrapper=) won't make sense in your
-system so you have to modify them.
+Create symbolic links of =init.el= and =emacs.nix= to
+=$HOME/.config/nixpkgs/overlays= and run
+#+begin_src sh
+nix-env -iA nixpkgs.emacs
+#+end_src
